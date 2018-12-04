@@ -20,7 +20,7 @@ Light command framework for JDA Discord bots using annotations
 	<dependency>
 	    <groupId>com.dev-infinity</groupId>
 	    <artifactId>JDACommands</artifactId>
-	    <version>1.0</version>
+	    <version>v1.0</version>
 	</dependency>
 ```
 
@@ -35,7 +35,7 @@ Light command framework for JDA Discord bots using annotations
 ```
 ```gradle
 	dependencies {
-	        implementation 'com.dev-infinity:JDACommands:1.0'
+	        implementation 'com.dev-infinity:JDACommands:v1.0'
 	}
 ```
 
