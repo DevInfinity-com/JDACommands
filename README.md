@@ -1,7 +1,43 @@
 # JDACommands
-Light command framework for JDA Discord bots using annotation
+[![](https://jitpack.io/v/com.dev-infinity/JDACommands.svg)](https://jitpack.io/#com.dev-infinity/JDACommands)
+
+Light command framework for JDA Discord bots using annotations
 
 ## How to use
+
+### Adding the dependency
+
+**Maven**
+```xml
+	<repositories>
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+```
+```xml
+	<dependency>
+	    <groupId>com.dev-infinity</groupId>
+	    <artifactId>JDACommands</artifactId>
+	    <version>1.0</version>
+	</dependency>
+```
+
+**Gradle**
+```gradle
+	allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+```gradle
+	dependencies {
+	        implementation 'com.dev-infinity:JDACommands:1.0'
+	}
+```
 
 ### Creating a command
 
