@@ -90,7 +90,7 @@ public class CommandManager {
         for (Parameter parameter : method.getParameters()) {
             Class<?> type = parameter.getType();
 
-            Checks.check(ARGUMENTS_TYPE.get(type) != null, "%s is not a valid argument type", type.getSimpleName());
+            Checks.check(ARGUMENTS_TYPE.get(type) != null, "Invalid argument type: " + type.getName());
         }
     }
 
@@ -149,7 +149,7 @@ public class CommandManager {
             }
         }
 
-        LOGGER.info(message.getAuthor().getName() + " executed command " + message.getContentRaw());
+        LOGGER.info("{} executed command {}", message.getAuthor().getName(), message.getContentRaw());
 
         String[] args = Arrays.copyOfRange(split, 1, split.length);
 
@@ -160,7 +160,7 @@ public class CommandManager {
         try {
             command.getMethod().invoke(command.getObject(), parameters);
         } catch (Exception e) {
-            LOGGER.error("Error while dispatching command " + command.getName(), e);
+            LOGGER.error("Error while dispatching command {}", command.getName(), e);
         }
 
         return true;
