@@ -17,20 +17,19 @@ Light command framework for JDA Discord bots using annotations
 </repositories>
 ```
 ```xml
-<dependency>
-    <groupId>com.dev-infinity</groupId>
-    <artifactId>JDACommands</artifactId>
-    <version>v1.0</version>
-</dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.dev-infinity</groupId>
+        <artifactId>JDACommands</artifactId>
+        <version>v1.0</version>
+    </dependency>
+</dependencies>
 ```
 
 **Gradle**
 ```gradle
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
+repositories {
+    maven { url 'https://jitpack.io' }
 }
 ```
 ```gradle
