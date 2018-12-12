@@ -9,34 +9,34 @@ Light command framework for JDA Discord bots using annotations
 
 **Maven**
 ```xml
-	<repositories>
-		<repository>
-		    <id>jitpack.io</id>
-		    <url>https://jitpack.io</url>
-		</repository>
-	</repositories>
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ```
 ```xml
-	<dependency>
-	    <groupId>com.dev-infinity</groupId>
-	    <artifactId>JDACommands</artifactId>
-	    <version>v1.0</version>
-	</dependency>
+<dependency>
+    <groupId>com.dev-infinity</groupId>
+    <artifactId>JDACommands</artifactId>
+    <version>v1.0</version>
+</dependency>
 ```
 
 **Gradle**
 ```gradle
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
-	}
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
 ```
 ```gradle
-	dependencies {
-	        implementation 'com.dev-infinity:JDACommands:v1.0'
-	}
+dependencies {
+    implementation 'com.dev-infinity:JDACommands:v1.0'
+}
 ```
 
 ### Creating a command
@@ -76,7 +76,7 @@ Arguments can be one of the following types:
 Just create a `CommandManager` instance and call `executeCommand` when the bot receive a message that can be a command
 
 ```java
-    CommandManager commandManager = new CommandManager("!");
+    CommandManager commandManager = new CommandManager("!"); // '!' is the prefix for the commands
     commandManager.register(new TestCommand());
 
     try {

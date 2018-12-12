@@ -11,10 +11,7 @@ import org.slf4j.Logger;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -30,10 +27,6 @@ public class CommandManager {
 
     private String commandPrefix;
 
-    public CommandManager(String commandTag) {
-        this.commandPrefix = commandTag;
-    }
-
     static {
         registerArgumentType(Message.class, m -> m);
         registerArgumentType(User.class, Message::getAuthor);
@@ -42,6 +35,10 @@ public class CommandManager {
         registerArgumentType(Guild.class, Message::getGuild);
         registerArgumentType(JDA.class, Message::getJDA);
         registerArgumentType(String[].class, m -> new String[0]);
+    }
+
+    public CommandManager(String commandTag) {
+        this.commandPrefix = commandTag;
     }
 
     public void registerAll(Object... objects) {
@@ -56,10 +53,12 @@ public class CommandManager {
         if (clazz.isAnnotationPresent(CommandName.class)) {
             String name = clazz.getAnnotation(CommandName.class).value();
 
-            Method[] methods = Arrays.stream(clazz.getMethods()).filter(m -> m.isAnnotationPresent(CommandExecutor.class)).toArray(Method[]::new);
+            Method[] methods = Arrays.stream(clazz.getMethods())
+                    .filter(m -> m.isAnnotationPresent(CommandExecutor.class))
+                    .toArray(Method[]::new);
 
             Checks.check(methods.length > 0, "No CommandExecutor found for command " + name);
-            Checks.check(methods.length == 1, "More than one CommandExecutor found for command " + name);
+            Checks.check(methods.length < 2, "More than one CommandExecutor found for command " + name);
 
             String[] alias = new String[0];
 
@@ -91,7 +90,7 @@ public class CommandManager {
         for (Parameter parameter : method.getParameters()) {
             Class<?> type = parameter.getType();
 
-            Checks.check(ARGUMENTS_TYPE.containsKey(type), "%s is not a valid argument type", type.getSimpleName());
+            Checks.check(ARGUMENTS_TYPE.get(type) != null, "%s is not a valid argument type", type.getSimpleName());
         }
     }
 
@@ -104,11 +103,23 @@ public class CommandManager {
     }
 
     public void unregister(String commandName) {
-        Command command = commands.remove(commandName.toLowerCase());
+        Command command = commands.get(commandName);
 
         if (command != null) {
-            for (String alias : command.getAlias()) {
-                while (commandAlias.remove(alias.toLowerCase()) != null) ;
+            unregister(command);
+        }
+    }
+
+    public void unregister(Command command) {
+        Checks.notNull(command, "command");
+
+        commands.remove(command.getName());
+
+        for (String alias : command.getAlias()) {
+            String s = alias.toLowerCase();
+
+            while (commands.get(s) != null) {
+                commands.remove(s);
             }
         }
     }
@@ -156,7 +167,7 @@ public class CommandManager {
     }
 
     public Collection<Command> getCommands() {
-        return commands.values();
+        return Collections.unmodifiableCollection(commands.values());
     }
 
     public String getCommandPrefix() {
