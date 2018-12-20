@@ -34,7 +34,7 @@ repositories {
 ```
 ```gradle
 dependencies {
-    implementation 'com.dev-infinity:JDACommands:v1.0'
+    implementation 'com.dev-infinity:JDACommands:1.0.1'
 }
 ```
 

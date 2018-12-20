@@ -1,6 +1,7 @@
 package com.dev_infinity.commands;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * @author MrMicky
@@ -33,5 +34,10 @@ public class Command {
 
     public Object getObject() {
         return object;
+    }
+
+    @Override
+    public String toString() {
+        return "Command{name='" + name + "'" + ", alias=" + Arrays.toString(alias) + '}';
     }
 }

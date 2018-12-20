@@ -160,7 +160,7 @@ public class CommandManager {
         try {
             command.getMethod().invoke(command.getObject(), parameters);
         } catch (Exception e) {
-            LOGGER.error("Error while dispatching command {}", command.getName(), e);
+            LOGGER.error("Error while dispatching command {}", command, e);
         }
 
         return true;
